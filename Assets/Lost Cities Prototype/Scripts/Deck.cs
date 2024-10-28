@@ -19,6 +19,7 @@ public class Deck : MonoBehaviour
     { 
         Initialize_Deck();
 
+        Shuffle(ref deck);
     }
 
     private void Initialize_Deck()
@@ -66,6 +67,27 @@ public class Deck : MonoBehaviour
         card.Constructor(colour, value);
 
         deck.Add(temp_card);
+    }
+
+    public void Shuffle(ref List<GameObject> deck)
+    {
+        List<GameObject> cards;
+
+        int index;
+
+        cards = new List<GameObject>();
+
+        while (deck.Count > 0)
+        {
+            index = UnityEngine.Random.Range(0, deck.Count);
+
+            cards.Add(deck[index]);
+
+            deck.RemoveAt(index);
+        }
+
+        deck = cards;
+
     }
 
 }
