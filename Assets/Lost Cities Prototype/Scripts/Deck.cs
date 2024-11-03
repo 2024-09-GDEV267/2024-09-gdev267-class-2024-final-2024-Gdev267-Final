@@ -9,20 +9,13 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class Deck : MonoBehaviour
 {
+    public GameObject deck_object;
 
     public GameObject card_prefab;
 
     public List<GameObject> deck;
 
-
-    public void Start()
-    { 
-        Initialize_Deck();
-
-        Shuffle(ref deck);
-    }
-
-    private void Initialize_Deck()
+    public void Initialize_Deck()
     {
         var colours = Enum.GetValues(typeof(Colour));
 
@@ -52,7 +45,9 @@ public class Deck : MonoBehaviour
 
             }
         }
-        
+
+        Shuffle(ref deck);
+
     }
 
     private void Create_Card(Colour colour, int value)
@@ -65,6 +60,8 @@ public class Deck : MonoBehaviour
         Card card = temp_card.GetComponent<Card>();
 
         card.Constructor(colour, value);
+
+        temp_card.transform.SetParent(deck_object.transform);
 
         deck.Add(temp_card);
     }
@@ -88,6 +85,16 @@ public class Deck : MonoBehaviour
 
         deck = cards;
 
+    }
+
+    public GameObject DrawCard()
+    {
+        GameObject card = deck[0];
+
+        deck.RemoveAt(0);
+
+        return card;
+        
     }
 
 }
