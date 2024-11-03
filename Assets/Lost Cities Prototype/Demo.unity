@@ -895,7 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4018c80dc38074c9a40f76bceea84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player_hand: {fileID: 0}
+  player_hand: {fileID: 1427543651}
   player_slots:
   - {fileID: 1501313890}
   - {fileID: 416366451}
