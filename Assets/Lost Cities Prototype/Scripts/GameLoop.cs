@@ -1,48 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using Card;
 
 public class GameLoop : MonoBehaviour
 {
+    public GameObject deck_object;
+    public Deck deck;
 
-    public GameObject actionButtons;
-    public GameObject drawButton;
-    public GameObject endTurnButton;
+    public GameObject player_hand;
+    public Player player;
 
-    private string player_name = "Player 1";
-    private Card[] hand_1 = new Card[8];
-    private Card[] hand_1 = new Card[8];
+    // Start is called before the first frame update
+    void Start()
+    {
+        deck = deck_object.GetComponent<Deck>();
+        player = player_hand.GetComponent<Player>();
 
-    
+        deck.Initialize_Deck();
 
-    public void play_card()
-    {
-        Debug.Log(player_name + " played a card");
-        actionButtons.SetActive(false);
-        drawButton.SetActive(true);
-    }
-    public void discard_card()
-    {
-        Debug.Log(player_name + " discarded a card");
-        actionButtons.SetActive(false);
-        drawButton.SetActive(true);
-    }
-    public void draw()
-    {
-        Debug.Log(player_name + " drew a card");
-        drawButton.SetActive(false);
-        endTurnButton.SetActive(true);
-    }
-    public void end_turn()
-    {
-        Debug.Log(player_name + " ended their turn");
-        if(player_name.Equals("Player 1")) {
-            player_name = "Player 2";
-        } else {
-            player_name = "Player 1";
+        for (int count = 1; count <= 8; count++)
+        {
+            GameObject card = deck.DrawCard();
+
+            player.player_cards.Add(card);
         }
-        endTurnButton.SetActive(false);
-        actionButtons.SetActive(true);
+
+        player.FirstEight();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
