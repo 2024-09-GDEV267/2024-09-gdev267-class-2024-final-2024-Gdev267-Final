@@ -42,9 +42,19 @@ public class Player : MonoBehaviour
             selected_card.GetComponent<Card>().Return_Position();
         }
 
-        selected_card = card;
+        if (selected_card == card)
+        {
+            selected_card.GetComponent<Card>().Return_Position();
 
-        card.GetComponent<Card>().Select_Position();
+            selected_card = null;
+        } else
+        {
+            selected_card = card;
+
+            selected_card.GetComponent<Card>().Select_Position();
+        }
+
+        
     }
 
     public void Add_Card(GameObject card)
@@ -55,6 +65,8 @@ public class Player : MonoBehaviour
         }
 
         player_cards.Add(card);
+
+        FindObjectOfType<UIControl>().Update_Player_Count(player_cards.Count);
 
         Sort_Cards();
     }
@@ -76,11 +88,24 @@ public class Player : MonoBehaviour
 
             card.transform.position = player_slots[count].transform.position;
 
+            script.hand_position = card.transform.position;
+
             card.SetActive(true);
 
             count++;
         }
 
+    }
+
+    public void Card_Placed()
+    {
+        player_cards.Remove(selected_card);
+
+        selected_card = null;
+
+        FindObjectOfType<UIControl>().Update_Player_Count(player_cards.Count);
+
+        Sort_Cards() ;
     }
 
 }

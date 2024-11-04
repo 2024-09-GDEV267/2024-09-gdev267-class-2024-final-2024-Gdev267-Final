@@ -102,4 +102,12 @@ public class Deck : MonoBehaviour
         
     }
 
+    private void OnMouseDown()
+    {
+        //Logic to check whos turn it is
+
+        // IF State != Draw Return
+        FindObjectOfType<Player>().Add_Card(Draw_Card());
+    }
+
 }

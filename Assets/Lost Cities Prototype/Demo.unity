@@ -1430,6 +1430,7 @@ GameObject:
   - component: {fileID: 1743409740}
   - component: {fileID: 1743409739}
   - component: {fileID: 1743409738}
+  - component: {fileID: 1743409742}
   m_Layer: 0
   m_Name: Green Expedition
   m_TagString: Untagged
@@ -1523,6 +1524,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 318980605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1743409742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743409737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d8a3ee99751d1d4e9689f6cc3affae3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expedition_plot: {fileID: 1743409737}
+  my_colour: 1
+  player_object: {fileID: 1427543651}
+  oppopnent_object: {fileID: 0}
+  player: {fileID: 0}
+  expedition_player_list: []
+  expedition_opponent_list: []
 --- !u!1 &1818488730
 GameObject:
   m_ObjectHideFlags: 0
@@ -1815,6 +1835,7 @@ GameObject:
   - component: {fileID: 2050150715}
   - component: {fileID: 2050150714}
   - component: {fileID: 2050150713}
+  - component: {fileID: 2050150717}
   m_Layer: 0
   m_Name: Blue Expedition
   m_TagString: Untagged
@@ -1908,6 +1929,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 318980605}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2050150717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050150712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3279c7713f31e40aa31119fb043f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  expedition_plot: {fileID: 2050150712}
+  my_colour: 0
+  player_object: {fileID: 1427543651}
+  oppopnent_object: {fileID: 0}
+  player: {fileID: 0}
+  expedition_player_list: []
+  expedition_opponent_list: []
 --- !u!1 &2050452320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2058,7 +2098,7 @@ SceneRoots:
   - {fileID: 1011369980}
   - {fileID: 565705293301174899}
   - {fileID: 1847501835}
+  - {fileID: 1427543652}
   - {fileID: 318980605}
   - {fileID: 818776088}
   - {fileID: 1818488733}
-  - {fileID: 1427543652}
