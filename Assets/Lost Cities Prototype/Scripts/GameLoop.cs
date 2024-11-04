@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum State
+{
+    Action,
+    Draw
+}
+
 public class GameLoop : MonoBehaviour
 {
     public GameObject deck_object;

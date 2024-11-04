@@ -59,6 +59,8 @@ public class Deck : MonoBehaviour
         GameObject temp_card = Instantiate(card_prefab);
         Card card = temp_card.GetComponent<Card>();
 
+        card.holder = Holder.Deck;
+
         card.Constructor(colour, value);
 
         temp_card.transform.SetParent(deck_object.transform);

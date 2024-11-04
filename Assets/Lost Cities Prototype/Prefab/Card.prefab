@@ -70,6 +70,10 @@ MonoBehaviour:
   value: 0
   card: {fileID: 1242099688780929454}
   aggreement: 0
+  in_hand: 0
+  being_hovered: 0
+  holder: 0
+  selected: 0
 --- !u!212 &4940631798800027106
 SpriteRenderer:
   m_ObjectHideFlags: 0
