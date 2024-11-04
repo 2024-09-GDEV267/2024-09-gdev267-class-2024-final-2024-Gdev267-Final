@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public enum Turn
+{
+    Player,
+    Opponent
+}
+
 public enum State
 {
     Action,
@@ -27,12 +33,12 @@ public class GameLoop : MonoBehaviour
 
         for (int count = 1; count <= 8; count++)
         {
-            GameObject card = deck.DrawCard();
+            GameObject card = deck.Draw_Card();
 
             player.player_cards.Add(card);
         }
 
-        player.FirstEight();
+        player.First_Eight();
     }
 
     // Update is called once per frame

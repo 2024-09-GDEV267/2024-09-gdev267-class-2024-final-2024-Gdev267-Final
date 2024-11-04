@@ -27,7 +27,39 @@ public class Player : MonoBehaviour
 
     }
 
-    public void FirstEight()
+    public void First_Eight()
+    {
+        
+        Sort_Cards();
+
+        FindObjectOfType<UIControl>().Update_Player_Count(player_cards.Count);
+    }
+
+    public void Select_Card(GameObject card)
+    {
+        if (selected_card != null)
+        {
+            selected_card.GetComponent<Card>().Return_Position();
+        }
+
+        selected_card = card;
+
+        card.GetComponent<Card>().Select_Position();
+    }
+
+    public void Add_Card(GameObject card)
+    {
+        if (player_cards.Count == 8)
+        {
+            return;
+        }
+
+        player_cards.Add(card);
+
+        Sort_Cards();
+    }
+
+    public void Sort_Cards()
     {
         int count = 0;
 
@@ -48,10 +80,7 @@ public class Player : MonoBehaviour
 
             count++;
         }
-           
 
     }
-
-
 
 }

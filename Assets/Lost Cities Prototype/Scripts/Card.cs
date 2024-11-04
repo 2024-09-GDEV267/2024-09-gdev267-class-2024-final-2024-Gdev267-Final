@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public enum Colour
@@ -115,7 +114,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if (holder == Holder.Player && in_hand)
+        if (holder == Holder.Player && in_hand && !selected)
         {
             being_hovered = true;
 
@@ -130,7 +129,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (being_hovered)
+        if (being_hovered && !selected)
         {
             being_hovered = false;
 
@@ -141,6 +140,41 @@ public class Card : MonoBehaviour
             card.transform.position = new_position;
         }
 
+    }
+
+    public void Select_Position()
+    {
+        if (holder == Holder.Player && in_hand && selected)
+        {
+            Vector3 new_position = card.transform.position;
+
+            new_position.y += 1;
+
+            card.transform.position = new_position;
+        }
+    }
+
+    public void Return_Position()
+    {
+        if (holder == Holder.Player && in_hand && selected)
+        {
+            selected = false;
+
+            Vector3 new_position = card.transform.position;
+
+            new_position.y -= 2;
+
+            card.transform.position = new_position;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        if (holder == Holder.Player)
+        {
+            selected = true;
+            FindObjectOfType<Player>().Select_Card(gameObject);
+        }
     }
 
 }

@@ -1,11 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
+
 
 public class Deck : MonoBehaviour
 {
@@ -48,6 +45,8 @@ public class Deck : MonoBehaviour
 
         Shuffle(ref deck);
 
+        FindObjectOfType<UIControl>().Update_Deck_Count(deck.Count);
+
     }
 
     private void Create_Card(Colour colour, int value)
@@ -89,11 +88,15 @@ public class Deck : MonoBehaviour
 
     }
 
-    public GameObject DrawCard()
+    public GameObject Draw_Card()
     {
         GameObject card = deck[0];
 
         deck.RemoveAt(0);
+        
+        // Potential Bug here. If card is not accepted the card count will be wrong
+        // CHECK HERE IF THAT HAPPENS VVVVV
+        FindObjectOfType<UIControl>().Update_Deck_Count(deck.Count);
 
         return card;
         
