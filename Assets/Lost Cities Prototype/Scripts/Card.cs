@@ -35,6 +35,7 @@ public class Card : MonoBehaviour
     public bool         being_hovered;
     public Holder       holder;
     public bool         selected;
+    public Vector3      hand_position;
 
 
     public void Constructor(Colour colour, int value)
@@ -133,22 +134,20 @@ public class Card : MonoBehaviour
         {
             being_hovered = false;
 
-            Vector3 new_position = card.transform.position;
-
-            new_position.y -= 1;
-
-            card.transform.position = new_position;
+            card.transform.position = hand_position;
         }
 
     }
 
     public void Select_Position()
     {
-        if (holder == Holder.Player && in_hand && selected)
+        if (holder == Holder.Player && in_hand)
         {
+            selected = true;
+
             Vector3 new_position = card.transform.position;
 
-            new_position.y += 1;
+            new_position.y += 1.2f;
 
             card.transform.position = new_position;
         }
@@ -156,15 +155,11 @@ public class Card : MonoBehaviour
 
     public void Return_Position()
     {
-        if (holder == Holder.Player && in_hand && selected)
+        if (holder == Holder.Player && in_hand)
         {
             selected = false;
 
-            Vector3 new_position = card.transform.position;
-
-            new_position.y -= 2;
-
-            card.transform.position = new_position;
+            card.transform.position = hand_position;
         }
     }
 
@@ -172,7 +167,6 @@ public class Card : MonoBehaviour
     {
         if (holder == Holder.Player)
         {
-            selected = true;
             FindObjectOfType<Player>().Select_Card(gameObject);
         }
     }
