@@ -32,6 +32,10 @@ public class Card : MonoBehaviour
     [Header("Card Data")]
     public GameObject   card;
     public bool         aggreement;
+    public bool         in_hand;
+    public bool         being_hovered;
+    public Holder       holder;
+    public bool         selected;
 
 
     public void Constructor(Colour colour, int value)
@@ -107,6 +111,36 @@ public class Card : MonoBehaviour
                 break;
 
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        if (holder == Holder.Player && in_hand)
+        {
+            being_hovered = true;
+
+            Vector3 new_position = card.transform.position;
+
+            new_position.y += 1;
+
+            card.transform.position = new_position;
+        }
+        
+    }
+
+    private void OnMouseExit()
+    {
+        if (being_hovered)
+        {
+            being_hovered = false;
+
+            Vector3 new_position = card.transform.position;
+
+            new_position.y -= 1;
+
+            card.transform.position = new_position;
+        }
+
     }
 
 }
