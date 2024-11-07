@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeckRD : MonoBehaviour
@@ -79,6 +80,34 @@ public class DeckRD : MonoBehaviour
 
         deck_list = shuffle;
 
+    }
+
+    public void Last_Card_Check()
+    {
+        int remaining_cards = deck_list.Count;
+
+        if (remaining_cards == 0)
+        {
+            // Inform Game Master
+            Debug.LogWarning("LAST CARD DRAWN!");
+        }
+
+    }
+
+    public GameObject Draw_Card()
+    {
+        GameObject card = deck_list[(deck_list.Count) - 1];
+
+        deck_list.RemoveAt((deck_list.Count) - 1);
+
+        Last_Card_Check();
+
+        return card;
+    }
+
+    public void Put_Back(GameObject card)
+    {
+        deck_list.Add(card);
     }
 
 }

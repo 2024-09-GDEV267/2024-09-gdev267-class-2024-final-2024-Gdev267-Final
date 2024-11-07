@@ -1,18 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Order
 {
     Human,
     Robot
-}
-
-public enum Action
-{
-    Play,
-    Draw
 }
 
 public enum Round
@@ -43,12 +38,19 @@ public class GameMaster : MonoBehaviour
     [Header("Object References")]
     public GameObject Deck;
     private DeckRD deck_script;
+    public GameObject Human;
+    private HumanRD human_script;
+    public GameObject Robot;
+    private RobotRD robot_script;
 
 
     private void Awake()
     {
-        DeckRD deck_script = Deck.GetComponent<DeckRD>();
+        deck_script = Deck.GetComponent<DeckRD>();
+        human_script = Human.GetComponent<HumanRD>();
+        robot_script = Robot.GetComponent<RobotRD>();
     }
+
     void Start()
     {
      // Coin Flip Scene
@@ -62,9 +64,23 @@ public class GameMaster : MonoBehaviour
 
         deck_script.Initialize_Deck();
 
-     // Deal 8 Cards to First Order
 
-     // Deal 8 Cards to Second Order
+     // Deal 8 Cards to Human Order
+        for (int count = 1; count <= 8; count++)
+        {
+            GameObject card = deck_script.Draw_Card();
+
+            human_script.Add_Card_to_Hand(card);
+        }
+
+
+     // Deal 8 Cards to Robot Order
+        for (int count = 1; count <= 8; count++)
+        {
+            GameObject card = deck_script.Draw_Card();
+
+            robot_script.Add_Card_to_Hand(card);
+        }
 
      // 2 Actions per Turn
         // Play { Play to Expidition Plot || Discard to Expidition Discard }
@@ -83,6 +99,18 @@ public class GameMaster : MonoBehaviour
 
      // Round Finale Calculation Scene
 
+    }
+
+    public MonoBehaviour Current_Turn_Holder()
+    {
+        if (current_turn == Order.Human)
+        {
+            return human_script;
+        }
+        else
+        {
+            return robot_script;
+        }
     }
 
 }
