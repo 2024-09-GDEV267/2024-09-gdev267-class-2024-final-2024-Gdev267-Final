@@ -2,7 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Card : MonoBehaviour
+public enum Colour
+{
+    Blue,
+    Green,
+    White,
+    Yellow,
+    Red
+}
+
+public class CardRD : MonoBehaviour
 {
     [Header("Card Art")]
     public Sprite[]     values;
@@ -22,16 +31,9 @@ public class Card : MonoBehaviour
     [Header("Card Data")]
     public GameObject   card;
     public bool         aggreement;
-    public bool         in_hand;
-    public bool         being_hovered;
-    public Holder       holder;
-    public bool         selected;
-    public Vector3      hand_position;
 
-
-    public void Constructor(Colour colour, int value)
+    public void Constructor(Colour color, int rank)
     {
-        // Work Around
         card.SetActive(false);
 
         if (value == 1)
@@ -44,18 +46,16 @@ public class Card : MonoBehaviour
         {
             name = colour.ToString() + " " + value.ToString();
         }
-        
 
-        this.colour = colour;
-        this.value = value;
 
-        // Add Value text
+        colour = color;
+        value = rank;
+
         Text_Value();
-        // Add Sprite Art
         Sprite_Art();
-        // Add Count Pip
 
     }
+
 
     private void Text_Value()
     {
@@ -69,11 +69,11 @@ public class Card : MonoBehaviour
         sprite_UD_render.sprite = value_sprite;
     }
 
+
     private void Sprite_Art()
     {
         SpriteRenderer sprite_render = image_object.GetComponent<SpriteRenderer>();
 
-        // Before Sprite is Added
         switch (colour)
         {
             default:
@@ -103,63 +103,4 @@ public class Card : MonoBehaviour
 
         }
     }
-
-    private void OnMouseEnter()
-    {
-        if (holder == Holder.Player && in_hand && !selected)
-        {
-            being_hovered = true;
-
-            Vector3 new_position = card.transform.position;
-
-            new_position.y += 1;
-
-            card.transform.position = new_position;
-        }
-        
-    }
-
-    private void OnMouseExit()
-    {
-        if (being_hovered && !selected)
-        {
-            being_hovered = false;
-
-            card.transform.position = hand_position;
-        }
-
-    }
-
-    public void Select_Position()
-    {
-        if (holder == Holder.Player && in_hand)
-        {
-            selected = true;
-
-            Vector3 new_position = card.transform.position;
-
-            new_position.y += 1.2f;
-
-            card.transform.position = new_position;
-        }
-    }
-
-    public void Return_Position()
-    {
-        if (holder == Holder.Player && in_hand)
-        {
-            selected = false;
-
-            card.transform.position = hand_position;
-        }
-    }
-
-    private void OnMouseDown()
-    {
-        if (holder == Holder.Player)
-        {
-            FindObjectOfType<Player>().Select_Card(gameObject);
-        }
-    }
-
 }

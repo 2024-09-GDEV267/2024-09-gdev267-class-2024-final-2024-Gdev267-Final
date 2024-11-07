@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1029111520433671130}
-  - component: {fileID: 5072700908308795282}
+  - component: {fileID: 8041230556021265421}
   - component: {fileID: 4940631798800027106}
   - component: {fileID: 3251659158318701679}
   m_Layer: 0
-  m_Name: Card
+  m_Name: CardRD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +37,7 @@ Transform:
   - {fileID: 7579934394919482401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5072700908308795282
+--- !u!114 &8041230556021265421
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242099688780929454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7020b4d18cf5ec2409eed64d94f29b59, type: 3}
+  m_Script: {fileID: 11500000, guid: 50d77d54ff3bed4489ac34912a590cd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   values:
@@ -69,12 +69,6 @@ MonoBehaviour:
   colour: 0
   value: 0
   card: {fileID: 1242099688780929454}
-  aggreement: 0
-  in_hand: 0
-  being_hovered: 0
-  holder: 0
-  selected: 0
-  hand_position: {x: 0, y: 0, z: 0}
 --- !u!212 &4940631798800027106
 SpriteRenderer:
   m_ObjectHideFlags: 0
