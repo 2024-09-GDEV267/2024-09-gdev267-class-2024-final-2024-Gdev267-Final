@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3251659158318701679}
   m_Layer: 0
   m_Name: CardRD
-  m_TagString: Untagged
+  m_TagString: Card
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,6 +69,7 @@ MonoBehaviour:
   colour: 0
   value: 0
   card: {fileID: 1242099688780929454}
+  aggreement: 0
 --- !u!212 &4940631798800027106
 SpriteRenderer:
   m_ObjectHideFlags: 0

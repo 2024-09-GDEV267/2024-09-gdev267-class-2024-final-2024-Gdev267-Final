@@ -32,7 +32,7 @@ public class CardRD : MonoBehaviour
     public GameObject   card;
     public bool         aggreement;
 
-    public void Constructor(Colour color, int rank)
+    public void Constructor(Colour colour, int value)
     {
         card.SetActive(false);
 
@@ -48,8 +48,8 @@ public class CardRD : MonoBehaviour
         }
 
 
-        colour = color;
-        value = rank;
+        this.colour = colour;
+        this.value = value;
 
         Text_Value();
         Sprite_Art();
