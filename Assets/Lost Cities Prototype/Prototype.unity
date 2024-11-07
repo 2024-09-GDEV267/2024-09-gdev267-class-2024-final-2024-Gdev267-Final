@@ -151,7 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59f6b80bbe54efc468242efe668e514c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  action: 0000000000000000
+  my_turn: 0
+  action: 0000000001000000
   current_action: 0
   has_played: 0
   has_drawed: 0
@@ -458,6 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1dc0c5fa490d1439426a29e4571894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  my_turn: 0
   action: 0000000001000000
   current_action: 0
   has_played: 0
