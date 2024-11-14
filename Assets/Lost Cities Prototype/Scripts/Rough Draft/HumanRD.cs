@@ -29,6 +29,8 @@ public class HumanRD : MonoBehaviour
     {
         if (Open_Spot_Check())
         {
+            card.transform.SetParent(this.transform);
+
             cards.Add(card);
         }
 
@@ -38,6 +40,8 @@ public class HumanRD : MonoBehaviour
     {
         if (Open_Spot_Check() && has_played)
         {
+            card.transform.SetParent(this.transform);
+
             cards.Add(card);
         }
 
@@ -51,5 +55,12 @@ public class HumanRD : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Take_Turn()
+    {
+        if (!my_turn) return;
+
+        // Wait for Click
     }
 }

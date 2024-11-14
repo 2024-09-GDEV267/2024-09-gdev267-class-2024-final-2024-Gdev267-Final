@@ -17,23 +17,17 @@ public enum Round
     Third,
 }
 
-public enum Pile
-{
-    Deck,
-    Human_Hand,
-    Robot_Hand,
-    Expedition_Plot,
-    Expedition_Discard
-}
-
 public class GameMaster : MonoBehaviour
 {
+    public static GameMaster S;
 
     public Dictionary<Round, Order> Best_of_Three = new();
 
     [Header("Turn Details")]
     public Order current_turn;
     public Order[] turn_order = new Order[2];
+    private bool human_turn_start = false;
+    private bool robot_turn_start = false;
 
     [Header("Object References")]
     public GameObject Deck;
@@ -43,12 +37,17 @@ public class GameMaster : MonoBehaviour
     public GameObject Robot;
     private RobotRD robot_script;
 
+    [Header("Game Details")]
+    public bool last_card_drawn = false;
+
 
     private void Awake()
     {
         deck_script = Deck.GetComponent<DeckRD>();
         human_script = Human.GetComponent<HumanRD>();
         robot_script = Robot.GetComponent<RobotRD>();
+
+        S = this;
     }
 
     void Start()
@@ -70,6 +69,10 @@ public class GameMaster : MonoBehaviour
         {
             GameObject card = deck_script.Draw_Card();
 
+            CardRD cardRD = card.GetComponent<CardRD>();
+
+            cardRD.pile = Pile.Human_Hand;
+
             human_script.Add_Card_to_Hand(card);
         }
 
@@ -79,9 +82,80 @@ public class GameMaster : MonoBehaviour
         {
             GameObject card = deck_script.Draw_Card();
 
+            CardRD cardRD = card.GetComponent<CardRD>();
+
+            cardRD.pile = Pile.Robot_Hand;
+
             robot_script.Add_Card_to_Hand(card);
         }
 
+        Game_Loop();
+
+    }
+
+    private void Game_Loop()
+    {
+        if (last_card_drawn)
+        {
+            Score_Scene();
+        } else
+        {
+            switch (current_turn)
+            {
+                case Order.Human:
+                    if (!human_turn_start)
+                    {
+                        human_turn_start = true;
+                        human_script.my_turn = true;
+
+                        Debug.Log("Human Turn");
+                    }
+
+                    // Wait For Input
+                    human_script.Take_Turn();
+
+                    // Turn Off Turn
+                    if (human_script.has_played && human_script.has_drawed)
+                    {
+                        human_turn_start = false;
+
+                        human_script.my_turn = false;
+                        human_script.has_played = false;
+                        human_script.has_drawed = false;
+
+                        current_turn = Order.Robot;
+                    }
+
+                    break;
+
+                case Order.Robot:
+                    if (!robot_turn_start)
+                    {
+                        robot_turn_start = true;
+                        robot_script.my_turn = true;
+
+                        Debug.Log("Robot Turn");
+                    }
+
+                    // Wait For Outcome
+                    robot_script.Take_Turn();
+
+                    //Turn Off Turn
+                    if (robot_script.has_played && robot_script.has_drawed)
+                    {
+                        robot_turn_start = false;
+
+                        robot_script.my_turn = false;
+                        robot_script.has_played = false;
+                        robot_script.has_drawed = false;
+
+                        current_turn = Order.Human;
+                    }
+
+                    break;
+            }
+
+        }
      // 2 Actions per Turn
         // Play { Play to Expidition Plot || Discard to Expidition Discard }
         // Draw { Either from Deck || from Expidition Discard }
@@ -92,7 +166,7 @@ public class GameMaster : MonoBehaviour
 
      // Calculating Scene
         // Add Round and Winner to Best_of_Three 
-            
+
      // Next Round Loser Goes First
 
      // Repeat Game Loop x2
@@ -111,6 +185,11 @@ public class GameMaster : MonoBehaviour
         {
             return robot_script;
         }
+    }
+
+    public void Score_Scene()
+    {
+        Debug.LogWarning("End Game Scene");
     }
 
 }

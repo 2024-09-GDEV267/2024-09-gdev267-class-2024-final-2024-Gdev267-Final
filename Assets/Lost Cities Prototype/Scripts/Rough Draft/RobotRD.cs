@@ -22,6 +22,8 @@ public class RobotRD : MonoBehaviour
     {
         if (Open_Spot_Check())
         {
+            card.transform.SetParent(this.transform);
+
             cards.Add(card);
         }
 
@@ -31,6 +33,8 @@ public class RobotRD : MonoBehaviour
     {
         if (Open_Spot_Check() && has_played)
         {
+            card.transform.SetParent(this.transform);
+
             cards.Add(card);
         }
 
@@ -44,5 +48,10 @@ public class RobotRD : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Take_Turn()
+    {
+        Debug.Log("Robot Taking Turn ...");
     }
 }

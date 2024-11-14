@@ -12,7 +12,6 @@ public class DeckRD : MonoBehaviour
     public GameObject card_prefab;
     public List<GameObject> deck_list;
 
-
     public void Initialize_Deck()
     {
         var colours = Enum.GetValues(typeof(Colour));
@@ -55,6 +54,8 @@ public class DeckRD : MonoBehaviour
 
         card.Constructor(colour, value);
 
+        card.pile = Pile.Deck;
+
         temp_card.transform.SetParent(Deck.transform);
 
         deck_list.Add(temp_card);
@@ -89,6 +90,7 @@ public class DeckRD : MonoBehaviour
         if (remaining_cards == 0)
         {
             // Inform Game Master
+            GameMaster.S.last_card_drawn = true;
             Debug.LogWarning("LAST CARD DRAWN!");
         }
 
