@@ -28,10 +28,4 @@ public class GameLoop : MonoBehaviour
 
         player.First_Eight();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
