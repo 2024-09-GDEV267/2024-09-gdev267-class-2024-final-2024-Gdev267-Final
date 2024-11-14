@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public enum Colour
@@ -40,7 +41,7 @@ public class CardRD : MonoBehaviour
     [Header("Card Data")]
     public GameObject   card;
     public bool         aggreement;
-    public Pile         pile;
+    public Pile         current_pile;
 
     public void Constructor(Colour colour, int value)
     {
@@ -113,4 +114,10 @@ public class CardRD : MonoBehaviour
 
         }
     }
+
+    private void OnMouseUpAsButton()
+    {
+        GameMaster.S.Select(card);
+    }
+
 }

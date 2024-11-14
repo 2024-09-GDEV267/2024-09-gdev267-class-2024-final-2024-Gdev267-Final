@@ -23,6 +23,7 @@ public class HumanRD : MonoBehaviour
 
     [Header("Cards in Hand")]
     public List<GameObject> cards;
+    public GameObject selected_card = null;
 
 
     public void Add_Card_to_Hand(GameObject card)

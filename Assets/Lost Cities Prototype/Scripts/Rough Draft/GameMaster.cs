@@ -39,6 +39,8 @@ public class GameMaster : MonoBehaviour
 
     [Header("Game Details")]
     public bool last_card_drawn = false;
+    public GameObject card_slected = null;
+    public GameObject robot_slected;
 
 
     private void Awake()
@@ -71,7 +73,7 @@ public class GameMaster : MonoBehaviour
 
             CardRD cardRD = card.GetComponent<CardRD>();
 
-            cardRD.pile = Pile.Human_Hand;
+            cardRD.current_pile = Pile.Human_Hand;
 
             human_script.Add_Card_to_Hand(card);
         }
@@ -84,16 +86,16 @@ public class GameMaster : MonoBehaviour
 
             CardRD cardRD = card.GetComponent<CardRD>();
 
-            cardRD.pile = Pile.Robot_Hand;
+            cardRD.current_pile = Pile.Robot_Hand;
 
             robot_script.Add_Card_to_Hand(card);
         }
 
-        //Game_Loop();
+        Game_Loop();
 
     }
 
-    private void Update()
+    private void Game_Loop()
     {
         if (last_card_drawn)
         {
@@ -112,7 +114,7 @@ public class GameMaster : MonoBehaviour
                     }
 
                     // Wait For Input
-                    //human_script.Take_Turn();
+                    human_script.Take_Turn();
 
                     // Turn Off Turn
                     if (human_script.has_played && human_script.has_drawed)
@@ -175,21 +177,50 @@ public class GameMaster : MonoBehaviour
 
     }
 
-    public MonoBehaviour Current_Turn_Holder()
-    {
-        if (current_turn == Order.Human)
-        {
-            return human_script;
-        }
-        else
-        {
-            return robot_script;
-        }
-    }
-
     public void Score_Scene()
     {
         Debug.LogWarning("End Game Scene");
+    }
+
+    public void Select(GameObject card)
+    {
+        CardRD card_script = card.GetComponent<CardRD>();
+
+        switch (card_script.current_pile)
+        {
+            case Pile.Deck:
+                if (current_turn != Order.Human) return;
+
+                if (!human_script.has_played) return;
+
+                if (!human_script.Open_Spot_Check())
+                {
+                    return;
+                } else
+                {
+                    human_script.Add_Draw_to_Hand(card);
+                }
+
+                break;
+
+            case Pile.Human_Hand:
+                human_script.selected_card = card;
+                break;
+
+            case Pile.Robot_Hand:
+                break;
+
+            case Pile.Expedition_Plot:
+                break;
+
+            case Pile.Expedition_Discard:
+                if (current_turn != Order.Human) return;
+
+                if (!human_script.has_played) return;
+                break;
+        }
+
+
     }
 
 }

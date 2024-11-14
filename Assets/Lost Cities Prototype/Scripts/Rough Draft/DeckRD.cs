@@ -54,7 +54,7 @@ public class DeckRD : MonoBehaviour
 
         card.Constructor(colour, value);
 
-        card.pile = Pile.Deck;
+        card.current_pile = Pile.Deck;
 
         temp_card.transform.SetParent(Deck.transform);
 
