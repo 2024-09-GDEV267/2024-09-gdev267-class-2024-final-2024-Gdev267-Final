@@ -11,6 +11,15 @@ public enum Colour
     Red
 }
 
+public enum Pile
+{
+    Deck,
+    Human_Hand,
+    Robot_Hand,
+    Expedition_Plot,
+    Expedition_Discard
+}
+
 public class CardRD : MonoBehaviour
 {
     [Header("Card Art")]
@@ -31,6 +40,7 @@ public class CardRD : MonoBehaviour
     [Header("Card Data")]
     public GameObject   card;
     public bool         aggreement;
+    public Pile         pile;
 
     public void Constructor(Colour colour, int value)
     {
