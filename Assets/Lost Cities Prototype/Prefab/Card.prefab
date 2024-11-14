@@ -74,6 +74,7 @@ MonoBehaviour:
   being_hovered: 0
   holder: 0
   selected: 0
+  hand_position: {x: 0, y: 0, z: 0}
 --- !u!212 &4940631798800027106
 SpriteRenderer:
   m_ObjectHideFlags: 0

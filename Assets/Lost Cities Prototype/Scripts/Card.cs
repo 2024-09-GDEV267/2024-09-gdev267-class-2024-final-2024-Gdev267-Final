@@ -2,15 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Colour
-{
-    Blue,
-    Green,
-    White,
-    Yellow,
-    Red
-}
-
 public class Card : MonoBehaviour
 {
     [Header("Card Art")]

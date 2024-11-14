@@ -3,18 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum Turn
-{
-    Player,
-    Opponent
-}
-
-public enum State
-{
-    Action,
-    Draw
-}
-
 public class GameLoop : MonoBehaviour
 {
     public GameObject deck_object;
@@ -39,11 +27,5 @@ public class GameLoop : MonoBehaviour
         }
 
         player.First_Eight();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
