@@ -192,4 +192,30 @@ public class GameMaster : MonoBehaviour
         Debug.LogWarning("End Game Scene");
     }
 
+    public void Robot_Play(CardRD card)
+    {
+        Debug.Log("Robot Played " + card);
+    }
+    public void Robot_Discard(CardRD card)
+    {
+        Debug.Log("Robot Discarded " + card);
+    }
+    public void Robot_Draw()
+    {
+        GameObject card_to_draw = deck_script.Draw_Card();
+        robot_script.Add_Draw_to_Hand(card_to_draw);
+        Debug.Log("Robot drew " + card_to_draw);
+    }
+    public void Robot_End_Turn()
+    {
+        Debug.Log("Robot Ended Turn");
+        robot_turn_start = false;
+
+        robot_script.my_turn = false;
+        robot_script.has_played = false;
+        robot_script.has_drawed = false;
+
+        current_turn = Order.Human;
+    }
+
 }
