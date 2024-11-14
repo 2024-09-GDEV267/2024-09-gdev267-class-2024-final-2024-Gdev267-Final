@@ -40,17 +40,18 @@ public class Card
         return exp.getColor();
     }
 
+public Awake()
+    {
+    public static void main(String[] args)
+        {
+        Card card = new Card(Expedition.AreaR, 10);
+        System.out.println("Card color: " + card.getColor());
+        }
+    }
     // ... other methods for getting rank, suit, etc.
 }
 
-public class Main
-{
-    public static void main(String[] args)
-    {
-        Card card = new Card(Expedition.AreaR, 10);
-        System.out.println("Card color: " + card.getColor());
-    }
-}
+
 
 // -- expedition colors
 //data Color = Red | Green | White | Blue | Yellow 
@@ -115,4 +116,3 @@ public class Main
 //-- all faces, including repeated investment cards
 //faces :: [Face]
 //faces = 0:0:0:[2..10]
-+
