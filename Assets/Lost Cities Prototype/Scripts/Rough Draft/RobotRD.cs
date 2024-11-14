@@ -16,6 +16,13 @@ public class RobotRD : MonoBehaviour
 
     [Header("Cards in Hand")]
     public List<GameObject> cards;
+    public GameObject Game;
+    private GameMaster game_script;
+
+    public void Awake()
+    {
+        game_script = Game.GetComponent<GameMaster>();
+    }
 
 
     public void Add_Card_to_Hand(GameObject card)
@@ -52,6 +59,16 @@ public class RobotRD : MonoBehaviour
 
     public void Take_Turn()
     {
+        has_played =  false;
+        has_drawed = false;
         Debug.Log("Robot Taking Turn ...");
+        //Play or Discard
+        has_played = true;
+
+        //Draw card
+        has_drawed = true;
+
+        //End turn
+
     }
 }

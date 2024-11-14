@@ -138,7 +138,7 @@ public class GameMaster : MonoBehaviour
                     }
 
                     // Wait For Outcome
-                    //robot_script.Take_Turn();
+                    robot_script.Take_Turn();
 
                     //Turn Off Turn
                     if (robot_script.has_played && robot_script.has_drawed)
