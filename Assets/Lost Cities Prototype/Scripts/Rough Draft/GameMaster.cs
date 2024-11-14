@@ -217,6 +217,16 @@ public class GameMaster : MonoBehaviour
                 if (current_turn != Order.Human) return;
 
                 if (!human_script.has_played) return;
+
+                if (!human_script.Open_Spot_Check())
+                {
+                    return;
+                }
+                else
+                {
+                    //human_script.Add_Draw_to_Hand(expedition_script.Draw_Card());
+                }
+
                 break;
         }
 
