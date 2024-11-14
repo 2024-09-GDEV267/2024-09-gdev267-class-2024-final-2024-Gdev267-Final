@@ -198,7 +198,7 @@ public class GameMaster : MonoBehaviour
                     return;
                 } else
                 {
-                    human_script.Add_Draw_to_Hand(card);
+                    human_script.Add_Draw_to_Hand(deck_script.Draw_Card());
                 }
 
                 break;
