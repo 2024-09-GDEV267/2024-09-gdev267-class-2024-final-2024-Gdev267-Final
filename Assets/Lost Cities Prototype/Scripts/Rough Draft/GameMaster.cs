@@ -89,11 +89,11 @@ public class GameMaster : MonoBehaviour
             robot_script.Add_Card_to_Hand(card);
         }
 
-        Game_Loop();
+        //Game_Loop();
 
     }
 
-    private void Game_Loop()
+    private void Update()
     {
         if (last_card_drawn)
         {
@@ -112,7 +112,7 @@ public class GameMaster : MonoBehaviour
                     }
 
                     // Wait For Input
-                    human_script.Take_Turn();
+                    //human_script.Take_Turn();
 
                     // Turn Off Turn
                     if (human_script.has_played && human_script.has_drawed)
@@ -138,7 +138,7 @@ public class GameMaster : MonoBehaviour
                     }
 
                     // Wait For Outcome
-                    robot_script.Take_Turn();
+                    //robot_script.Take_Turn();
 
                     //Turn Off Turn
                     if (robot_script.has_played && robot_script.has_drawed)
