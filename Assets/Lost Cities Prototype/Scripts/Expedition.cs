@@ -15,13 +15,8 @@ public class Expedition : MonoBehaviour
     {
         deck_script = Deck.GetComponent<DeckRD>();
     }
-    
-    // Start is called before the first frame update
-    void Start(){
-        
-    }
 
-    void Update()
+    public void populate_expedition()
     {
         if(!cards.Any())
         {
@@ -40,11 +35,19 @@ public class Expedition : MonoBehaviour
 
     void Calculate_Score(){
 
-        int score = 0;
+        int score = -20;
+        int multiplier = 1;
+        int total_score = 0;
 
         foreach(GameObject card in cards) {
-            Card card_data = card.GetComponent<Card>();
-            Debug.Log(card_data.value);
+            CardRD card_data = card.GetComponent<CardRD>();
+            if(card_data.value == 1){
+                multiplier++;
+            } else {
+                score += card_data.value;
+            }
         }
+        total_score = score * multiplier;
+        Debug.Log("Score: " + score + ", Multiplier: " +  multiplier + ", Total Score: " + total_score);
     }
 }

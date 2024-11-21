@@ -37,6 +37,8 @@ public class GameMaster : MonoBehaviour
     public GameObject Robot;
     private RobotRD robot_script;
 
+    public GameObject expedition_object;
+
     [Header("Game Details")]
     public bool last_card_drawn = false;
     public GameObject card_slected = null;
@@ -92,6 +94,10 @@ public class GameMaster : MonoBehaviour
         }
 
         deck_script.Set_Top_Deck();
+
+        Expedition expedition_script = expedition_object.GetComponent<Expedition>();
+
+        expedition_script.populate_expedition();
 
         Game_Loop();
 
