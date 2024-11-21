@@ -20,6 +20,8 @@ public class BlueExpeditionRD : MonoBehaviour
     {
         if (expedition_discard.Count ==  0) return;
 
+        int last_card = expedition_discard.Count - 1;
+
         GameObject card = expedition_discard[(expedition_discard.Count) - 1];
 
         card.transform.SetParent(expidition_top_deck.transform);

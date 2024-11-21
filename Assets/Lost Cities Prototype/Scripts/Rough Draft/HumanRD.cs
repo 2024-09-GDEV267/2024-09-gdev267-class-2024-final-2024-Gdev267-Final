@@ -72,6 +72,20 @@ public class HumanRD : MonoBehaviour
 
     }
 
+    public void Readd_Card(GameObject card)
+    {
+        int count = 0;
+
+        foreach (GameObject object_search in cards) {
+            if (object_search == card)
+            {
+                card.transform.position = slots[count].transform.position;
+            }
+
+            count++;
+        }
+    }
+
     public bool Open_Spot_Check()
     {
         if (cards.Count < 8)

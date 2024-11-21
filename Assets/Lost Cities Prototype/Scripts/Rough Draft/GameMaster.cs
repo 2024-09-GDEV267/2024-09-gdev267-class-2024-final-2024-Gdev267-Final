@@ -36,10 +36,12 @@ public class GameMaster : MonoBehaviour
     private HumanRD human_script;
     public GameObject Robot;
     private RobotRD robot_script;
+    public GameObject action_slot;
 
     [Header("Game Details")]
     public bool last_card_drawn = false;
-    public GameObject card_slected = null;
+    public GameObject[] card_slot;
+    public GameObject card_selected = null;
     public GameObject robot_slected;
 
 
@@ -94,21 +96,24 @@ public class GameMaster : MonoBehaviour
 
         deck_script.Set_Top_Deck();
 
-        Game_Loop_Human();
+        Game_Loop();
 
     }
 
-    private void Game_Loop_Human()
+    private void Action_Slot_Card(GameObject card)
     {
-        if (last_card_drawn)
+        if (card_slot[0] == null)
         {
-            Score_Scene();
-        }
-        else
+            card_selected.transform.position = action_slot.transform.position;
+            card_slot[0] = card;
+        } else
         {
-            // Human only Logic here
-        }
+            human_script.Readd_Card(card_slot[0]);
 
+            card_selected.transform.position = action_slot.transform.position;
+            card_slot[0] = card;
+        }
+        
     }
 
     private void Game_Loop()
@@ -174,22 +179,6 @@ public class GameMaster : MonoBehaviour
             }
 
         }
-     // 2 Actions per Turn
-        // Play { Play to Expidition Plot || Discard to Expidition Discard }
-        // Draw { Either from Deck || from Expidition Discard }
-            // Exeption ! Card draw cannot be the same card discarded same turn
-
-     // Loop through turn order
-        // Deck signals last card drawn !
-
-     // Calculating Scene
-        // Add Round and Winner to Best_of_Three 
-
-     // Next Round Loser Goes First
-
-     // Repeat Game Loop x2
-
-     // Round Finale Calculation Scene
 
     }
 
@@ -205,22 +194,13 @@ public class GameMaster : MonoBehaviour
         switch (card_script.current_pile)
         {
             case Pile.Deck:
-                if (current_turn != Order.Human) return;
-
-                if (!human_script.has_played) return;
-
-                if (!human_script.Open_Spot_Check())
-                {
-                    return;
-                } else
-                {
-                    human_script.Add_Draw_to_Hand(deck_script.Draw_Card());
-                }
-
                 break;
 
             case Pile.Human_Hand:
                 human_script.selected_card = card;
+                card_selected = card;
+
+                Action_Slot_Card(card);
                 break;
 
             case Pile.Robot_Hand:
@@ -230,19 +210,6 @@ public class GameMaster : MonoBehaviour
                 break;
 
             case Pile.Expedition_Discard:
-                if (current_turn != Order.Human) return;
-
-                if (!human_script.has_played) return;
-
-                if (!human_script.Open_Spot_Check())
-                {
-                    return;
-                }
-                else
-                {
-                    //human_script.Add_Draw_to_Hand(expedition_script.Draw_Card());
-                }
-
                 break;
         }
 
