@@ -50,17 +50,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   values:
-  - {fileID: -1400288563, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: 155930713, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: 1108858110, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: -912194488, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: -1254484799, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: -1358883371, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: 1257652694, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: -435095653, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: 122764401, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  - {fileID: 1582714446, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
-  images: []
+  - {fileID: -1954901379, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: -1242330885, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: -1357596528, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: 1623237212, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: 1472768226, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: 1805223844, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: -450453618, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: -1267023542, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: -1129092174, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  - {fileID: 1128239460, guid: 58f886564855d0e41a6d5e8b63c6b3a5, type: 3}
+  images:
+  - {fileID: -1343025367, guid: cabae64c74e213c4486931b762f131df, type: 3}
+  - {fileID: -1999793709, guid: cabae64c74e213c4486931b762f131df, type: 3}
+  - {fileID: -519656727, guid: cabae64c74e213c4486931b762f131df, type: 3}
+  - {fileID: -299107311, guid: cabae64c74e213c4486931b762f131df, type: 3}
+  - {fileID: -142599438, guid: cabae64c74e213c4486931b762f131df, type: 3}
   value_object: {fileID: 3872165771028117556}
   value_UD_object: {fileID: 6730132031166329838}
   value_sprite: {fileID: 0}
@@ -175,7 +180,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1029111520433671130}
@@ -220,9 +225,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0, g: 0.0323627, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -258,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 3872165771028117556}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.106, y: 1.243, z: -0.01}
+  m_LocalPosition: {x: -1, y: 1.243, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -304,7 +309,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: -1400288563, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -342,7 +347,7 @@ Transform:
   m_GameObject: {fileID: 6730132031166329838}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -1, w: 0.0000029504295}
-  m_LocalPosition: {x: 1.144, y: -1.257, z: -0.01}
+  m_LocalPosition: {x: 1, y: -1.257, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -388,7 +393,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: -1400288563, guid: 45f2cb19fa2b3b34d8a93a77dbabefc3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -82,23 +82,23 @@ public class Card : MonoBehaviour
                 break;
 
             case Colour.Blue:
-                sprite_render.color = Color.blue;
+                sprite_render.sprite = images[1];
                 break;
 
             case Colour.Green:
-                sprite_render.color = Color.green;
+                sprite_render.sprite = images[2];
                 break;
 
             case Colour.White:
-                sprite_render.color = Color.white;
+                sprite_render.sprite = images[0];
                 break;
 
             case Colour.Yellow:
-                sprite_render.color = Color.yellow;
+                sprite_render.sprite = images[3];
                 break;
 
             case Colour.Red:
-                sprite_render.color = Color.red;
+                sprite_render.sprite = images[4];
                 break;
 
         }

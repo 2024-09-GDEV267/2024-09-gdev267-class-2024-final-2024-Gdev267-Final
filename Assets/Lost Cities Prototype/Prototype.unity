@@ -465,6 +465,7 @@ MonoBehaviour:
   has_played: 0
   has_drawed: 0
   cards: []
+  selected_card: {fileID: 0}
 --- !u!4 &1270669472
 Transform:
   m_ObjectHideFlags: 0
@@ -514,6 +515,9 @@ MonoBehaviour:
   Deck: {fileID: 204944824}
   Human: {fileID: 1270669470}
   Robot: {fileID: 158661725}
+  last_card_drawn: 0
+  card_slected: {fileID: 0}
+  robot_slected: {fileID: 0}
 --- !u!4 &1925630994
 Transform:
   m_ObjectHideFlags: 0
