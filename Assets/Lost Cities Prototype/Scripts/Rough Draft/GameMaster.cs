@@ -57,7 +57,8 @@ public class GameMaster : MonoBehaviour
      // Coin Flip Scene
         int coin_flip = UnityEngine.Random.Range(0, 2);
 
-        current_turn = turn_order[coin_flip];
+        //current_turn = turn_order[coin_flip];
+        current_turn = Order.Human;
 
 
      // Deck
@@ -93,7 +94,20 @@ public class GameMaster : MonoBehaviour
 
         deck_script.Set_Top_Deck();
 
-        Game_Loop();
+        Game_Loop_Human();
+
+    }
+
+    private void Game_Loop_Human()
+    {
+        if (last_card_drawn)
+        {
+            Score_Scene();
+        }
+        else
+        {
+            // Human only Logic here
+        }
 
     }
 
