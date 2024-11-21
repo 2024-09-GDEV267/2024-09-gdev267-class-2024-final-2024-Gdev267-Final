@@ -7,6 +7,7 @@ using UnityEngine;
 public class DeckRD : MonoBehaviour
 {
     public GameObject Deck;
+    public GameObject Top_Deck;
 
     [Header("Deck Properties")]
     public GameObject card_prefab;
@@ -44,6 +45,7 @@ public class DeckRD : MonoBehaviour
         }
 
         Shuffle(ref deck_list);
+
     }
 
 
@@ -94,6 +96,17 @@ public class DeckRD : MonoBehaviour
             Debug.LogWarning("LAST CARD DRAWN!");
         }
 
+    }
+
+    public void Set_Top_Deck()
+    {
+        GameObject card = deck_list[(deck_list.Count) - 1];
+
+        card.transform.SetParent(Top_Deck.transform);
+
+        card.transform.position = Top_Deck.transform.position;
+
+        card.SetActive(true);
     }
 
     public GameObject Draw_Card()

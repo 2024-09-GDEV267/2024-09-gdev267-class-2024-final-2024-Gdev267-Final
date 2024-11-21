@@ -28,6 +28,8 @@ public class RobotRD : MonoBehaviour
             cards.Add(card);
         }
 
+        Sort_Hand();
+
     }
 
     public void Add_Draw_to_Hand(GameObject card)
@@ -38,6 +40,8 @@ public class RobotRD : MonoBehaviour
 
             cards.Add(card);
         }
+
+        Sort_Hand();
 
     }
 
@@ -54,5 +58,24 @@ public class RobotRD : MonoBehaviour
     public void Take_Turn()
     {
         Debug.Log("Robot Taking Turn ...");
+    }
+
+    public void Sort_Hand()
+    {
+        int count = 0;
+
+        foreach (GameObject card in cards)
+        {
+            Card script = card.GetComponent<Card>();
+
+            card.transform.SetParent(slots[count].transform);
+
+            card.transform.position = slots[count].transform.position;
+
+            card.SetActive(true);
+
+            count++;
+        }
+
     }
 }

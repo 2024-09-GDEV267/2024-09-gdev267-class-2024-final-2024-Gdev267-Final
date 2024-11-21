@@ -91,6 +91,8 @@ public class GameMaster : MonoBehaviour
             robot_script.Add_Card_to_Hand(card);
         }
 
+        deck_script.Set_Top_Deck();
+
         Game_Loop();
 
     }
