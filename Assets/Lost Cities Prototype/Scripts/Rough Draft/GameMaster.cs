@@ -38,6 +38,13 @@ public class GameMaster : MonoBehaviour
     private RobotRD robot_script;
     public GameObject action_slot;
 
+    [Header("Expiditions")]
+    public GameObject Blue_Expedition;
+    public GameObject Green_Expedition;
+    public GameObject White_Expedition;
+    public GameObject Yellow_Expedition;
+    public GameObject Red_Expedition;
+
     [Header("Game Details")]
     public bool last_card_drawn = false;
     public GameObject[] card_slot;
@@ -106,7 +113,17 @@ public class GameMaster : MonoBehaviour
         {
             card_selected.transform.position = action_slot.transform.position;
             card_slot[0] = card;
-        } else
+        } 
+        
+        else if ( card == card_slot[0])
+        {
+            human_script.Readd_Card(card_slot[0]);
+
+            human_script.selected_card = null;
+            card_selected = null;
+        }
+
+        else
         {
             human_script.Readd_Card(card_slot[0]);
 
@@ -133,9 +150,6 @@ public class GameMaster : MonoBehaviour
 
                         Debug.Log("Human Turn");
                     }
-
-                    // Wait For Input
-                    human_script.Take_Turn();
 
                     // Turn Off Turn
                     if (human_script.has_played && human_script.has_drawed)
@@ -213,6 +227,44 @@ public class GameMaster : MonoBehaviour
                 break;
         }
 
+
+    }
+
+    public void Play_Action()
+    {
+        if (current_turn != Order.Human) return;
+
+        if (card_selected == null) return;
+
+        CardRD card = card_selected.GetComponent<CardRD>();
+
+        switch (card.colour)
+        {
+            case Colour.Blue:
+                Debug.Log("Playing a Blue Card");
+                break;
+
+            case Colour.Green:
+                Debug.Log("Playing a Green Card");
+                break;
+
+            case Colour.White:
+                Debug.Log("Playing a White Card");
+                break;
+
+            case Colour.Yellow:
+                Debug.Log("Playing a Yellow Card");
+                break;
+
+            case Colour.Red:
+                Debug.Log("Playing a Red Card");
+                break;
+
+        }
+    }
+
+    public void Discard_Action()
+    {
 
     }
 

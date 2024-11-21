@@ -96,10 +96,4 @@ public class HumanRD : MonoBehaviour
         return false;
     }
 
-    public void Take_Turn()
-    {
-        if (!my_turn) return;
-
-        // Wait for Click
-    }
 }
