@@ -65,6 +65,8 @@ public class CardRD : MonoBehaviour
         Text_Value();
         Sprite_Art();
 
+        card = this.transform.gameObject;
+
     }
 
 

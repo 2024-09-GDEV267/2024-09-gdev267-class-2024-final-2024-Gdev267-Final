@@ -23,6 +23,7 @@ public class HumanRD : MonoBehaviour
 
     [Header("Cards in Hand")]
     public List<GameObject> cards;
+    public List<GameObject> slots;
     public GameObject selected_card = null;
 
 
@@ -35,6 +36,8 @@ public class HumanRD : MonoBehaviour
             cards.Add(card);
         }
 
+        Sort_Hand();
+
     }
 
     public void Add_Draw_to_Hand(GameObject card)
@@ -44,6 +47,27 @@ public class HumanRD : MonoBehaviour
             card.transform.SetParent(this.transform);
 
             cards.Add(card);
+        }
+
+        Sort_Hand();
+
+    }
+
+    public void Sort_Hand()
+    {
+        int count = 0;
+
+        foreach (GameObject card in cards)
+        {
+            Card script = card.GetComponent<Card>();
+
+            card.transform.SetParent(slots[count].transform);
+
+            card.transform.position = slots[count].transform.position;
+
+            card.SetActive(true);
+
+            count++;
         }
 
     }

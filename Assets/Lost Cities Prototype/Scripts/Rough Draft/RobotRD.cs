@@ -16,6 +16,7 @@ public class RobotRD : MonoBehaviour
 
     [Header("Cards in Hand")]
     public List<GameObject> cards;
+    public List<GameObject> slots;
 
 
     public void Add_Card_to_Hand(GameObject card)
