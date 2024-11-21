@@ -40,6 +40,7 @@ public class GameMaster : MonoBehaviour
 
     [Header("Expiditions")]
     public GameObject Blue_Expedition;
+    private BlueExpeditionRD blue_script;
     public GameObject Green_Expedition;
     public GameObject White_Expedition;
     public GameObject Yellow_Expedition;
@@ -57,6 +58,8 @@ public class GameMaster : MonoBehaviour
         deck_script = Deck.GetComponent<DeckRD>();
         human_script = Human.GetComponent<HumanRD>();
         robot_script = Robot.GetComponent<RobotRD>();
+
+        blue_script = Blue_Expedition.GetComponent<BlueExpeditionRD>();
 
         S = this;
     }
@@ -109,6 +112,10 @@ public class GameMaster : MonoBehaviour
 
     private void Action_Slot_Card(GameObject card)
     {
+        CardRD card_script = card.GetComponent<CardRD>();
+
+        if (card_script.current_pile != Pile.Human_Hand) return; 
+
         if (card_slot[0] == null)
         {
             card_selected.transform.position = action_slot.transform.position;
@@ -119,7 +126,6 @@ public class GameMaster : MonoBehaviour
         {
             human_script.Readd_Card(card_slot[0]);
 
-            human_script.selected_card = null;
             card_selected = null;
         }
 
@@ -149,18 +155,8 @@ public class GameMaster : MonoBehaviour
                         human_script.my_turn = true;
 
                         Debug.Log("Human Turn");
-                    }
 
-                    // Turn Off Turn
-                    if (human_script.has_played && human_script.has_drawed)
-                    {
-                        human_turn_start = false;
-
-                        human_script.my_turn = false;
-                        human_script.has_played = false;
-                        human_script.has_drawed = false;
-
-                        current_turn = Order.Robot;
+                        // Enable UI Elements
                     }
 
                     break;
@@ -174,26 +170,45 @@ public class GameMaster : MonoBehaviour
                         Debug.Log("Robot Turn");
                     }
 
-                    // Wait For Outcome
                     //robot_script.Take_Turn();
-
-                    //Turn Off Turn
-                    if (robot_script.has_played && robot_script.has_drawed)
-                    {
-                        robot_turn_start = false;
-
-                        robot_script.my_turn = false;
-                        robot_script.has_played = false;
-                        robot_script.has_drawed = false;
-
-                        current_turn = Order.Human;
-                    }
 
                     break;
             }
 
         }
 
+    }
+
+    public void Human_End_Turn()
+    {
+        if (human_script.has_played && human_script.has_drawed)
+        {
+            human_turn_start = false;
+
+            human_script.my_turn = false;
+            human_script.has_played = false;
+            human_script.has_drawed = false;
+
+            current_turn = Order.Robot;
+        }
+
+        Game_Loop();
+    }
+
+    public void Robot_End_Turn()
+    {
+        if (robot_script.has_played && robot_script.has_drawed)
+        {
+            robot_turn_start = false;
+
+            robot_script.my_turn = false;
+            robot_script.has_played = false;
+            robot_script.has_drawed = false;
+
+            current_turn = Order.Human;
+        }
+
+        Game_Loop();
     }
 
     public void Score_Scene()
@@ -211,7 +226,6 @@ public class GameMaster : MonoBehaviour
                 break;
 
             case Pile.Human_Hand:
-                human_script.selected_card = card;
                 card_selected = card;
 
                 Action_Slot_Card(card);
@@ -234,6 +248,8 @@ public class GameMaster : MonoBehaviour
     {
         if (current_turn != Order.Human) return;
 
+        if (human_script.has_played) return;
+
         if (card_selected == null) return;
 
         CardRD card = card_selected.GetComponent<CardRD>();
@@ -242,6 +258,25 @@ public class GameMaster : MonoBehaviour
         {
             case Colour.Blue:
                 Debug.Log("Playing a Blue Card");
+                if (!blue_script.Compare_Card(card))
+                {
+                    return;
+                } else
+                {
+                    card.current_pile = Pile.Expedition_Plot;
+
+                    blue_script.Human_Add_Card_To_Plot(card_selected);
+
+                    card_selected.SetActive(false);
+                    card_selected.transform.parent = null;
+                    card_selected.transform.position = Vector3.zero;
+
+                    card_selected = null;
+                    card_slot[0] = null;
+
+                    human_script.has_played = true;
+                }
+                
                 break;
 
             case Colour.Green:
@@ -265,7 +300,46 @@ public class GameMaster : MonoBehaviour
 
     public void Discard_Action()
     {
+        if (current_turn != Order.Human) return;
 
+        if (human_script.has_played) return;
+
+        if (card_selected == null) return;
+
+        CardRD card = card_selected.GetComponent<CardRD>();
+
+        switch (card.colour)
+        {
+            case Colour.Blue:
+                Debug.Log("Discarding a Blue Card");
+                blue_script.Discard_Card(card_selected);
+
+                card.current_pile = Pile.Expedition_Discard;
+
+                card_selected = null;
+                card_slot[0] = null;
+
+                human_script.has_played = true;
+
+                break;
+
+            case Colour.Green:
+                Debug.Log("Discarding a Green Card");
+                break;
+
+            case Colour.White:
+                Debug.Log("Discarding a White Card");
+                break;
+
+            case Colour.Yellow:
+                Debug.Log("Discarding a Yellow Card");
+                break;
+
+            case Colour.Red:
+                Debug.Log("Discarding a Red Card");
+                break;
+
+        }
     }
 
 }
