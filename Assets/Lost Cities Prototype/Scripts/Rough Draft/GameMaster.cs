@@ -192,6 +192,8 @@ public class GameMaster : MonoBehaviour
     {
         if (human_script.has_played && human_script.has_drawed)
         {
+            UIMasterRD.S.Hide_Draw_Buttons();
+
             human_turn_start = false;
 
             human_script.my_turn = false;
@@ -208,16 +210,13 @@ public class GameMaster : MonoBehaviour
 
     public void Robot_End_Turn()
     {
-        if (robot_script.has_played && robot_script.has_drawed)
-        {
-            robot_turn_start = false;
+        robot_turn_start = false;
 
-            robot_script.my_turn = false;
-            robot_script.has_played = false;
-            robot_script.has_drawed = false;
+        robot_script.my_turn = false;
+        robot_script.has_played = false;
+        robot_script.has_drawed = false;
 
-            current_turn = Order.Human;
-        }
+        current_turn = Order.Human;
 
         Game_Loop();
     }
@@ -276,6 +275,8 @@ public class GameMaster : MonoBehaviour
                 {
                     card.current_pile = Pile.Expedition_Plot;
 
+                    human_script.Remove_Card(card_selected);
+
                     blue_script.Human_Add_Card_To_Plot(card_selected);
 
                     card_selected.SetActive(false);
@@ -300,6 +301,8 @@ public class GameMaster : MonoBehaviour
                 {
                     card.current_pile = Pile.Expedition_Plot;
 
+                    human_script.Remove_Card(card_selected);
+
                     green_script.Human_Add_Card_To_Plot(card_selected);
 
                     card_selected.SetActive(false);
@@ -322,6 +325,8 @@ public class GameMaster : MonoBehaviour
                 else
                 {
                     card.current_pile = Pile.Expedition_Plot;
+
+                    human_script.Remove_Card(card_selected);
 
                     white_script.Human_Add_Card_To_Plot(card_selected);
 
@@ -346,6 +351,8 @@ public class GameMaster : MonoBehaviour
                 {
                     card.current_pile = Pile.Expedition_Plot;
 
+                    human_script.Remove_Card(card_selected);
+
                     yellow_script.Human_Add_Card_To_Plot(card_selected);
 
                     card_selected.SetActive(false);
@@ -368,6 +375,8 @@ public class GameMaster : MonoBehaviour
                 else
                 {
                     card.current_pile = Pile.Expedition_Plot;
+
+                    human_script.Remove_Card(card_selected);
 
                     red_script.Human_Add_Card_To_Plot(card_selected);
 
@@ -403,6 +412,8 @@ public class GameMaster : MonoBehaviour
                 Debug.Log("Discarding a Blue Card");
                 blue_script.Discard_Card(card_selected);
 
+                human_script.Remove_Card(card_selected);
+
                 card.current_pile = Pile.Expedition_Discard;
 
                 card_selected = null;
@@ -418,6 +429,8 @@ public class GameMaster : MonoBehaviour
                 Debug.Log("Discarding a Green Card");
                 green_script.Discard_Card(card_selected);
 
+                human_script.Remove_Card(card_selected);
+
                 card.current_pile = Pile.Expedition_Discard;
 
                 card_selected = null;
@@ -431,6 +444,8 @@ public class GameMaster : MonoBehaviour
             case Colour.White:
                 Debug.Log("Discarding a White Card");
                 white_script.Discard_Card(card_selected);
+
+                human_script.Remove_Card(card_selected);
 
                 card.current_pile = Pile.Expedition_Discard;
 
@@ -446,6 +461,8 @@ public class GameMaster : MonoBehaviour
                 Debug.Log("Discarding a Yellow Card");
                 yellow_script.Discard_Card(card_selected);
 
+                human_script.Remove_Card(card_selected);
+
                 card.current_pile = Pile.Expedition_Discard;
 
                 card_selected = null;
@@ -459,6 +476,8 @@ public class GameMaster : MonoBehaviour
             case Colour.Red:
                 Debug.Log("Discarding a Red Card");
                 red_script.Discard_Card(card_selected);
+
+                human_script.Remove_Card(card_selected);
 
                 card.current_pile = Pile.Expedition_Discard;
 
@@ -529,6 +548,79 @@ public class GameMaster : MonoBehaviour
 
 
         UIMasterRD.S.Display_Draw_Buttons(blue, green, white, yellow, red);
+    }
+
+    public void Draw_Card(Colour colour)
+    {
+        switch (colour)
+        {
+            case Colour.Blue:
+                if (human_script.Open_Spot_Check())
+                {
+                    human_script.Add_Draw_to_Hand(deck_script.Draw_Card());
+
+                    human_script.has_drawed = true;
+                }
+
+                Human_End_Turn();
+                break;
+
+            case Colour.Green:
+                if (human_script.Open_Spot_Check())
+                {
+                    human_script.Add_Draw_to_Hand(white_script.Draw_Card());
+
+                    human_script.has_drawed = true;
+                }
+
+                Human_End_Turn();
+                break;
+
+            case Colour.White:
+                if (human_script.Open_Spot_Check())
+                {
+                    human_script.Add_Draw_to_Hand(white_script.Draw_Card());
+
+                    human_script.has_drawed = true;
+                }
+
+                Human_End_Turn();
+                break;
+
+            case Colour.Yellow:
+                if (human_script.Open_Spot_Check())
+                {
+                    human_script.Add_Draw_to_Hand(yellow_script.Draw_Card());
+
+                    human_script.has_drawed = true;
+                }
+
+                Human_End_Turn();
+                break;
+
+            case Colour.Red:
+                if (human_script.Open_Spot_Check())
+                {
+                    human_script.Add_Draw_to_Hand(red_script.Draw_Card());
+
+                    human_script.has_drawed = true;
+                }
+
+                Human_End_Turn();
+                break;
+
+            case Colour.Null:
+                if (human_script.Open_Spot_Check())
+                {
+                    human_script.Add_Draw_to_Hand(deck_script.Draw_Card());
+
+                    human_script.has_drawed = true;
+                }
+
+                Human_End_Turn();
+                break;
+        }
+
     }
 
 }

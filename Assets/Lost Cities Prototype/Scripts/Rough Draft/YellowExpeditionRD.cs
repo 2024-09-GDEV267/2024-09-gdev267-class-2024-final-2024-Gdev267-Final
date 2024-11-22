@@ -77,4 +77,14 @@ public class YellowExpeditionRD : MonoBehaviour
             return true;
         }
     }
+
+    public GameObject Draw_Card()
+    {
+        GameObject card = expedition_discard[(expedition_discard.Count) - 1];
+
+        expedition_discard.RemoveAt((expedition_discard.Count) - 1);
+
+        return card;
+
+    }
 }

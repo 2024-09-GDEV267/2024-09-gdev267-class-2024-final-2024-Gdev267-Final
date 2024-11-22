@@ -58,7 +58,9 @@ public class HumanRD : MonoBehaviour
 
         foreach (GameObject card in cards)
         {
-            Card script = card.GetComponent<Card>();
+            CardRD script = card.GetComponent<CardRD>();
+
+            script.current_pile = Pile.Human_Hand;
 
             card.transform.SetParent(slots[count].transform);
 
@@ -93,6 +95,11 @@ public class HumanRD : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Remove_Card(GameObject card)
+    {
+        cards.Remove(card);
     }
 
 }
