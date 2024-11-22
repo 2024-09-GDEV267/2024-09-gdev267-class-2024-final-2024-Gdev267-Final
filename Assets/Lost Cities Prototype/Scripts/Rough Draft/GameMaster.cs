@@ -42,15 +42,20 @@ public class GameMaster : MonoBehaviour
     public GameObject Blue_Expedition;
     private BlueExpeditionRD blue_script;
     public GameObject Green_Expedition;
+    private GreenExpeditionRD green_script;
     public GameObject White_Expedition;
+    private WhiteExpeditionRD white_script;
     public GameObject Yellow_Expedition;
+    private YellowExpeditionRD yellow_script;
     public GameObject Red_Expedition;
+    private RedExpeditionRD red_script;
 
     [Header("Game Details")]
     public bool last_card_drawn = false;
     public GameObject[] card_slot;
     public GameObject card_selected = null;
     public GameObject robot_slected;
+    public Colour discarded_color = Colour.Null;
 
 
     private void Awake()
@@ -60,11 +65,15 @@ public class GameMaster : MonoBehaviour
         robot_script = Robot.GetComponent<RobotRD>();
 
         blue_script = Blue_Expedition.GetComponent<BlueExpeditionRD>();
+        green_script = Green_Expedition.GetComponent<GreenExpeditionRD>();
+        white_script = White_Expedition.GetComponent<WhiteExpeditionRD>();
+        yellow_script = Yellow_Expedition.GetComponent<YellowExpeditionRD>();
+        red_script = Red_Expedition.GetComponent<RedExpeditionRD>();
 
         S = this;
     }
 
-    void Start()
+    private void Start()
     {
      // Coin Flip Scene
         int coin_flip = UnityEngine.Random.Range(0, 2);
@@ -189,6 +198,8 @@ public class GameMaster : MonoBehaviour
             human_script.has_played = false;
             human_script.has_drawed = false;
 
+            discarded_color = Colour.Null;
+
             current_turn = Order.Robot;
         }
 
@@ -281,21 +292,99 @@ public class GameMaster : MonoBehaviour
 
             case Colour.Green:
                 Debug.Log("Playing a Green Card");
+                if (!green_script.Compare_Card(card))
+                {
+                    return;
+                }
+                else
+                {
+                    card.current_pile = Pile.Expedition_Plot;
+
+                    green_script.Human_Add_Card_To_Plot(card_selected);
+
+                    card_selected.SetActive(false);
+                    card_selected.transform.parent = null;
+                    card_selected.transform.position = Vector3.zero;
+
+                    card_selected = null;
+                    card_slot[0] = null;
+
+                    human_script.has_played = true;
+                }
                 break;
 
             case Colour.White:
                 Debug.Log("Playing a White Card");
+                if (!white_script.Compare_Card(card))
+                {
+                    return;
+                }
+                else
+                {
+                    card.current_pile = Pile.Expedition_Plot;
+
+                    white_script.Human_Add_Card_To_Plot(card_selected);
+
+                    card_selected.SetActive(false);
+                    card_selected.transform.parent = null;
+                    card_selected.transform.position = Vector3.zero;
+
+                    card_selected = null;
+                    card_slot[0] = null;
+
+                    human_script.has_played = true;
+                }
                 break;
 
             case Colour.Yellow:
                 Debug.Log("Playing a Yellow Card");
+                if (!yellow_script.Compare_Card(card))
+                {
+                    return;
+                }
+                else
+                {
+                    card.current_pile = Pile.Expedition_Plot;
+
+                    yellow_script.Human_Add_Card_To_Plot(card_selected);
+
+                    card_selected.SetActive(false);
+                    card_selected.transform.parent = null;
+                    card_selected.transform.position = Vector3.zero;
+
+                    card_selected = null;
+                    card_slot[0] = null;
+
+                    human_script.has_played = true;
+                }
                 break;
 
             case Colour.Red:
                 Debug.Log("Playing a Red Card");
+                if (!red_script.Compare_Card(card))
+                {
+                    return;
+                }
+                else
+                {
+                    card.current_pile = Pile.Expedition_Plot;
+
+                    red_script.Human_Add_Card_To_Plot(card_selected);
+
+                    card_selected.SetActive(false);
+                    card_selected.transform.parent = null;
+                    card_selected.transform.position = Vector3.zero;
+
+                    card_selected = null;
+                    card_slot[0] = null;
+
+                    human_script.has_played = true;
+                }
                 break;
 
         }
+
+        Draw_Action();
     }
 
     public void Discard_Action()
@@ -321,25 +410,125 @@ public class GameMaster : MonoBehaviour
 
                 human_script.has_played = true;
 
+                discarded_color = Colour.Blue;
+
                 break;
 
             case Colour.Green:
                 Debug.Log("Discarding a Green Card");
+                green_script.Discard_Card(card_selected);
+
+                card.current_pile = Pile.Expedition_Discard;
+
+                card_selected = null;
+                card_slot[0] = null;
+
+                human_script.has_played = true;
+
+                discarded_color = Colour.Green;
                 break;
 
             case Colour.White:
                 Debug.Log("Discarding a White Card");
+                white_script.Discard_Card(card_selected);
+
+                card.current_pile = Pile.Expedition_Discard;
+
+                card_selected = null;
+                card_slot[0] = null;
+
+                human_script.has_played = true;
+
+                discarded_color = Colour.White;
                 break;
 
             case Colour.Yellow:
                 Debug.Log("Discarding a Yellow Card");
+                yellow_script.Discard_Card(card_selected);
+
+                card.current_pile = Pile.Expedition_Discard;
+
+                card_selected = null;
+                card_slot[0] = null;
+
+                human_script.has_played = true;
+
+                discarded_color = Colour.Yellow;
                 break;
 
             case Colour.Red:
                 Debug.Log("Discarding a Red Card");
+                red_script.Discard_Card(card_selected);
+
+                card.current_pile = Pile.Expedition_Discard;
+
+                card_selected = null;
+                card_slot[0] = null;
+
+                human_script.has_played = true;
+
+                discarded_color = Colour.Red;
                 break;
 
         }
+
+        Draw_Action();
+    }
+
+    private void Draw_Action()
+    {
+        bool blue;
+        bool green;
+        bool white;
+        bool yellow;
+        bool red;
+
+        if (discarded_color == Colour.Blue)
+        {
+            blue = false;
+        } else
+        {
+            blue = blue_script.Discard_Check();
+        }
+
+        if (discarded_color == Colour.Green)
+        {
+            green = false;
+        }
+        else
+        {
+            green = green_script.Discard_Check();
+        }
+
+        if (discarded_color == Colour.White)
+        {
+            white = false;
+        }
+        else
+        {
+            white = white_script.Discard_Check();
+        }
+
+        if (discarded_color == Colour.Yellow)
+        {
+            yellow = false;
+        }
+        else
+        {
+            yellow = yellow_script.Discard_Check();
+        }
+
+        if (discarded_color == Colour.Red)
+        {
+            red = false;
+        }
+        else
+        {
+            red = red_script.Discard_Check();
+        }
+
+
+        UIMasterRD.S.Display_Draw_Buttons(blue, green, white, yellow, red);
     }
 
 }

@@ -35,4 +35,9 @@ public class UIMasterRD : MonoBehaviour
         Debug.Log("Discard Button Pressed");
         GameMaster.S.Discard_Action();
     }
+
+    public void Display_Draw_Buttons(bool blue, bool green, bool white, bool yellow, bool red)
+    {
+
+    }
 }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlueExpeditionRD : MonoBehaviour
+public class RedExpeditionRD : MonoBehaviour
 {
     [Header("Attributes")]
-    public Colour my_color = Colour.Blue;
+    public Colour my_color = Colour.Red;
 
     [Header("Objects")]
     public GameObject expidition_plot;
@@ -18,7 +18,7 @@ public class BlueExpeditionRD : MonoBehaviour
 
     public void Set_Top_Deck()
     {
-        if (expedition_discard.Count ==  0) return;
+        if (expedition_discard.Count == 0) return;
 
         foreach (GameObject card_object in expedition_discard)
         {
@@ -77,5 +77,4 @@ public class BlueExpeditionRD : MonoBehaviour
             return true;
         }
     }
-
 }
