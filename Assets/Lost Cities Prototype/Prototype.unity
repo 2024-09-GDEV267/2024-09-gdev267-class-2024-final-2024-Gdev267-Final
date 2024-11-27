@@ -608,6 +608,7 @@ MonoBehaviour:
   has_played: 0
   has_drawed: 0
   cards: []
+  Game: {fileID: 1925630992}
   slots:
   - {fileID: 347033170}
   - {fileID: 1106527417}

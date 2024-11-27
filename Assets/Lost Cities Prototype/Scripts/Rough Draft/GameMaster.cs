@@ -23,6 +23,10 @@ public class GameMaster : MonoBehaviour
 
     public Dictionary<Round, Order> Best_of_Three = new();
 
+        [Header("Game State")]
+    // NEW: Added discardPiles dictionary to manage discard piles for each expedition color or type
+    public Dictionary<string, Stack<GameObject>> discardPiles = new(); 
+
     [Header("Turn Details")]
     public Order current_turn;
     public Order[] turn_order = new Order[2];
@@ -83,8 +87,12 @@ public class GameMaster : MonoBehaviour
         //current_turn = turn_order[coin_flip];
         current_turn = Order.Human;
 
+                foreach (string color in new[] { "Red", "Green", "Blue", "Yellow", "White" })
+        {
+            discardPiles[color] = new Stack<GameObject>();
+        }
 
-     // Deck
+        // Deck
         // Create all cards and shuffle
 
         deck_script.Initialize_Deck();
@@ -185,7 +193,9 @@ public class GameMaster : MonoBehaviour
                         Debug.Log("Robot Turn");
                     }
 
-                    //robot_script.Take_Turn();
+                    // Wait For Outcome
+                    robot_script.Take_Turn();
+
 
                     break;
             }
@@ -231,6 +241,83 @@ public class GameMaster : MonoBehaviour
     {
         Debug.LogWarning("End Game Scene");
     }
+        public GameObject GetTopDiscard(string color)
+    {
+        if (discardPiles[color].Count > 0)
+        {
+            return discardPiles[color].Peek();
+        }
+        return null;
+    }
+
+        // NEW: Checks if the discard pile for a given color has any cards
+    public bool IsDiscardAvailable(string color)
+    {
+        return discardPiles[color].Count > 0;
+    }
+
+        // NEW: Determines the best discard card for the robot to draw based on an evaluation function
+    public GameObject GetBestDiscardForRobot()
+    {
+        GameObject bestCard = null;
+        int bestScore = int.MinValue;
+
+        foreach (var color in discardPiles.Keys)
+        {
+            if (discardPiles[color].Count > 0)
+            {
+                GameObject topCard = discardPiles[color].Peek();
+                CardRD cardData = topCard.GetComponent<CardRD>();
+                int score = EvaluateCardForDraw(cardData);
+
+                if (score > bestScore)
+                {
+                    bestScore = score;
+                    bestCard = topCard;
+                }
+            }
+        }
+
+        return bestCard;
+    }
+
+    // NEW: Evaluates the desirability of a card for the robot to draw
+    private int EvaluateCardForDraw(CardRD card)
+    {
+        int score = 0;
+
+        if (robot_script.game_script.IsExpeditionActive(card.color))
+        {
+            score += card.value; // Prefer higher-value cards for active expeditions
+        }
+        else
+        {
+            score -= 10; // Penalize cards requiring a new expedition
+        }
+
+        return score;
+    }
+
+    // NEW: Handles the robot's draw logic, prioritizing discard piles over the deck
+    public void Robot_Draw()
+    {
+        GameObject cardToDraw = GetBestDiscardForRobot();
+
+        if (cardToDraw != null)
+        {
+            string color = cardToDraw.GetComponent<CardRD>().color;
+            discardPiles[color].Pop(); // Remove the card from the discard pile
+            Debug.Log("Robot drew from discard pile: " + cardToDraw);
+        }
+        else
+        {
+            cardToDraw = deck_script.Draw_Card(); // Draw from the deck if no useful discard is found
+            Debug.Log("Robot drew from the deck: " + cardToDraw);
+        }
+
+        robot_script.Add_Draw_to_Hand(cardToDraw);
+    }
+}
 
     public void Select(GameObject card)
     {
@@ -627,6 +714,32 @@ public class GameMaster : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void Robot_Play(CardRD card)
+    {
+        Debug.Log("Robot Played " + card);
+    }
+    public void Robot_Discard(CardRD card)
+    {
+        Debug.Log("Robot Discarded " + card);
+    }
+    public void Robot_Draw()
+    {
+        GameObject card_to_draw = deck_script.Draw_Card();
+        robot_script.Add_Draw_to_Hand(card_to_draw);
+        Debug.Log("Robot drew " + card_to_draw);
+    }
+    public void Robot_End_Turn()
+    {
+        Debug.Log("Robot Ended Turn");
+        robot_turn_start = false;
+
+        robot_script.my_turn = false;
+        robot_script.has_played = false;
+        robot_script.has_drawed = false;
+
+        current_turn = Order.Human;
     }
 
 }
