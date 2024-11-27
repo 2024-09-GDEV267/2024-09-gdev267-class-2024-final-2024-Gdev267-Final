@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class DeckRD : MonoBehaviour
 {
     public GameObject Deck;
+    public GameObject Top_Deck;
 
     [Header("Deck Properties")]
     public GameObject card_prefab;
@@ -14,7 +16,9 @@ public class DeckRD : MonoBehaviour
 
     public void Initialize_Deck()
     {
-        var colours = Enum.GetValues(typeof(Colour));
+        var colours = Enum.GetValues(typeof(Colour)).Cast<Colour>().ToList();
+
+        colours.RemoveAt(colours.Count - 1);
 
         foreach (Colour colour in colours)
         {
@@ -44,6 +48,7 @@ public class DeckRD : MonoBehaviour
         }
 
         Shuffle(ref deck_list);
+
     }
 
 
@@ -54,7 +59,7 @@ public class DeckRD : MonoBehaviour
 
         card.Constructor(colour, value);
 
-        card.pile = Pile.Deck;
+        card.current_pile = Pile.Deck;
 
         temp_card.transform.SetParent(Deck.transform);
 
@@ -92,8 +97,22 @@ public class DeckRD : MonoBehaviour
             // Inform Game Master
             GameMaster.S.last_card_drawn = true;
             Debug.LogWarning("LAST CARD DRAWN!");
+        } else
+        {
+            Set_Top_Deck();
         }
 
+    }
+
+    public void Set_Top_Deck()
+    {
+        GameObject card = deck_list[(deck_list.Count) - 1];
+
+        card.transform.SetParent(Top_Deck.transform);
+
+        card.transform.position = Top_Deck.transform.position;
+
+        card.SetActive(true);
     }
 
     public GameObject Draw_Card()

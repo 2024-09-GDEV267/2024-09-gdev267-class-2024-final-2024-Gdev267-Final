@@ -23,6 +23,7 @@ public class HumanRD : MonoBehaviour
 
     [Header("Cards in Hand")]
     public List<GameObject> cards;
+    public List<GameObject> slots;
 
 
     public void Add_Card_to_Hand(GameObject card)
@@ -33,6 +34,8 @@ public class HumanRD : MonoBehaviour
 
             cards.Add(card);
         }
+
+        Sort_Hand();
 
     }
 
@@ -45,6 +48,43 @@ public class HumanRD : MonoBehaviour
             cards.Add(card);
         }
 
+        Sort_Hand();
+
+    }
+
+    public void Sort_Hand()
+    {
+        int count = 0;
+
+        foreach (GameObject card in cards)
+        {
+            CardRD script = card.GetComponent<CardRD>();
+
+            script.current_pile = Pile.Human_Hand;
+
+            card.transform.SetParent(slots[count].transform);
+
+            card.transform.position = slots[count].transform.position;
+
+            card.SetActive(true);
+
+            count++;
+        }
+
+    }
+
+    public void Readd_Card(GameObject card)
+    {
+        int count = 0;
+
+        foreach (GameObject object_search in cards) {
+            if (object_search == card)
+            {
+                card.transform.position = slots[count].transform.position;
+            }
+
+            count++;
+        }
     }
 
     public bool Open_Spot_Check()
@@ -57,10 +97,9 @@ public class HumanRD : MonoBehaviour
         return false;
     }
 
-    public void Take_Turn()
+    public void Remove_Card(GameObject card)
     {
-        if (!my_turn) return;
-
-        // Wait for Click
+        cards.Remove(card);
     }
+
 }

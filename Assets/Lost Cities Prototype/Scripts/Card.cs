@@ -55,6 +55,8 @@ public class Card : MonoBehaviour
         Sprite_Art();
         // Add Count Pip
 
+        card = this.transform.gameObject;
+
     }
 
     private void Text_Value()
