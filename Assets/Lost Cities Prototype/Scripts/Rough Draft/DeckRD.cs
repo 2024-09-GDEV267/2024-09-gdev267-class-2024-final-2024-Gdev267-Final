@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,7 +16,9 @@ public class DeckRD : MonoBehaviour
 
     public void Initialize_Deck()
     {
-        var colours = Enum.GetValues(typeof(Colour));
+        var colours = Enum.GetValues(typeof(Colour)).Cast<Colour>().ToList();
+
+        colours.RemoveAt(colours.Count - 1);
 
         foreach (Colour colour in colours)
         {
@@ -94,6 +97,9 @@ public class DeckRD : MonoBehaviour
             // Inform Game Master
             GameMaster.S.last_card_drawn = true;
             Debug.LogWarning("LAST CARD DRAWN!");
+        } else
+        {
+            Set_Top_Deck();
         }
 
     }

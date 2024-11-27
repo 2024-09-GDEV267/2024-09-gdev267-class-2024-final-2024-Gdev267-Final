@@ -9,7 +9,8 @@ public enum Colour
     Green,
     White,
     Yellow,
-    Red
+    Red,
+    Null
 }
 
 public enum Pile
